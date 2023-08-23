@@ -380,8 +380,6 @@ def cancelleave(request):
     leave_deletes.delete()
     return redirect('student_apply_leave')
 
-
-
 #########-LEAVE VIEWS-#################
 def studentleaveview(request):
     leaves = LeaveReportStudent.objects.all()
@@ -426,7 +424,6 @@ def dowload_course_doc(request):
     document = Document()
     sampless=Students.objects.get(admin=request.user.id)
     document.add_heading('Course Registered', 0)
-
     p = document.add_paragraph('Time Table ')
     table = document.add_table(rows=1, cols=3)
     hdr_cells = table.rows[0].cells
@@ -434,15 +431,11 @@ def dowload_course_doc(request):
     hdr_cells[1].text = 'Staff'
     hdr_cells[2].text = 'Time'
     curs=Courseregister.objects.filter(studentid=sampless)
-
-    for i in curs:
-        
+    for i in curs:    
         row = table.add_row().cells
         row[0].text = i.Coursee
         row[1].text = i.Stafff
         row[2].text = i.timess
-
-   
     #document.add_page_break()
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
     response['Content-Disposition'] = f'attachment; filename="{sampless.rollnumber}".docx'
