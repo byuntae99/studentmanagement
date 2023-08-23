@@ -58,11 +58,7 @@ def logout_user(request):
     logout(request)
     return HttpResponseRedirect('/')
 
-
-
 ############_____ADMIN______#############
-
-
 
 def adminhome(request):
     all_student_count = Students.objects.all().count()
@@ -158,14 +154,13 @@ def add_course_save(request):
         else:
             messages.error(request, "Failed to Add Course!")
             return redirect('add_course')
-        
+     
 def addstudent(request):
     form = AddStudentForm()
     context = {
         "form": form
     }
     return render(request, 'hod_template/add_student_template.html',context)
-
 
 def addstudentsave(request):
     if request.method != "POST":
@@ -201,14 +196,12 @@ def addstudentsave(request):
             messages.error(request, "Failed to Add Student!")
             return redirect('add_student')
 
-
 def managestudent(request):
     students = Students.objects.all()
     context = {
         "students": students
     }
     return render(request, 'hod_template/manage_student_template.html', context)
-
 
 def editstudent(request, student_id):
     # Adding Student ID into Session Variable
@@ -230,7 +223,6 @@ def editstudent(request, student_id):
         "form": form
     }
     return render(request, "hod_template/edit_student_template.html", context)
-
 
 def edit_student_save(request): 
 
@@ -278,9 +270,6 @@ def edit_student_save(request):
         except:
                 messages.error(request, "Failed to Update Student.")
                 return redirect('/edit_student/'+f'{student_id}')
-        
-    
-
 
 def deletestudent(request, student_id):
     student = Students.objects.get(admin=student_id)
